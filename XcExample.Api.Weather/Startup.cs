@@ -39,8 +39,15 @@ namespace XcExample.Api.Weather
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "XcExample.Api.Weather v1"));
+                app.UseSwagger(options =>
+                {
+                    options.SerializeAsV2 = true;
+                });
+                app.UseSwaggerUI(options =>
+                {
+                    options.RoutePrefix = "Swagger";
+                    options.SwaggerEndpoint("v1/swagger.json", "XcExample.Api.Weather v1");
+                });
             }
 
             app.UseRouting();

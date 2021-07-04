@@ -40,6 +40,7 @@ namespace XcExample.Api.Weather
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+
                 app.UseSwagger(options =>
                 {
                     options.SerializeAsV2 = true;

@@ -1,0 +1,8 @@
+name: apigateway-example
+services:
+- name: weather
+  project: ./XcExample.Api.Weather/XcExample.Api.Weather.csproj
+  bindings:
+  - port: 5581
+    protocol: http
+    name: http

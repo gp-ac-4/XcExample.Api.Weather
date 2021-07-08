@@ -56,11 +56,17 @@ namespace XcExample.Api.Weather
 
             app.UseAuthorization();
 
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapGet("/", async context => await context.Response.WriteAsync("ALIVE!"));
-                endpoints.MapControllers();
-            });
+            _ = app.UseEndpoints(endpoints =>
+              {
+                  endpoints.MapGet("/", async context => await context.Response.WriteAsync("ALIVE!"));
+                  var redisConnectionString = Configuration["REDIS_HOST"];
+                  endpoints.MapGet("/redis_health", async context =>
+                  {
+                      await (new Redis(redisConnectionString)).PingAsync();
+                      await context.Response.WriteAsync("Redis ALIVE!");
+                  });
+                  endpoints.MapControllers();
+              });
         }
     }
 }
